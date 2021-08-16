@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import torch
 
-from backbones import get_model
+from scrfd.backbones import get_model
 
 
 @torch.no_grad()

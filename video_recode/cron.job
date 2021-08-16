@@ -1,0 +1,1 @@
+*/1 * * * * cd /home/pc001/e/lcn/deepface-master/deepface-master/ && /bin/bash -c "/home/pc001/e/lcn/deepface-master/deepface-master/save_stream_v2.sh"

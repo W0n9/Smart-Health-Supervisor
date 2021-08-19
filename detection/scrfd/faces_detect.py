@@ -2,7 +2,7 @@ import argparse
 import cv2
 import torch
 import numpy as np
-from scrfd.mmdet.apis import inference_detector, init_detector
+from mmdet.apis import inference_detector, init_detector
 
 
 def parse_args():

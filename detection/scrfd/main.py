@@ -27,8 +27,8 @@ def main(db_path, config, checkpoint, model_path, model_name, source = 0, score_
         outs = inference(model_path, model_name, data)
         db_embeddings.append(outs)
     db_embeddings = torch.vstack(db_embeddings)
-    print(db_embeddings.size())
     print('finish extracting!')
+    
     frame_count = 0
     cap = cv2.VideoCapture(source)
     while True:
@@ -74,4 +74,4 @@ if __name__ == '__main__':
         config='D:/face/insightface/detection/scrfd/configs/scrfd/scrfd_500m.py',  
         checkpoint='D:/face/insightface/detection/scrfd_500m_model.pth', 
         model_path="C:/Users/DELL/Downloads/ms1mv3_arcface_r50_fp16_backbone.pth" ,
-        model_name='r50', source = "C:/Users/DELL/Desktop/face_det/320.mp4", score_thr=0.7)
+        model_name='r50', source = "C:/Users/DELL/Desktop/face_det/320cap.mp4", score_thr=0.7)

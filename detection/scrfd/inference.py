@@ -4,20 +4,16 @@ import cv2
 import numpy as np
 import torch
 
-from scrfd.backbones import get_model
+from backbones import get_model
 
 
 @torch.no_grad()
 def inference(weight, name, img):
-    
-    # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    # img = np.transpose(img, (2, 0, 1))
-    # img = torch.from_numpy(img).unsqueeze(0).float()
-    # img.div_(255).sub_(0.5).div_(0.5)
     net = get_model(name, fp16=False)
     net.load_state_dict(torch.load(weight))
+    net = net.cuda()
     net.eval()
-    feat = net(img)
+    feat = net(img.cuda())
     return feat
 
 

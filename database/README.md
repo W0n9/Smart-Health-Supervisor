@@ -6,7 +6,6 @@
 |time|TIMESTAMP|医生出镜的时间戳，主键|
 |current_doctor_id|INT|出镜的医生的唯一ID|
 |current_hospital_id|INT|出镜的医院的ID|
-|isViolation|boolean|医生是否违规手术|
 ---
 ## doctor
 |字段名|类型|备注|

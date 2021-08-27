@@ -1,4 +1,5 @@
-此模块未完成编写！  
+**此模块未完成编写！**
+
 TODO List：  
 - [x] 医院信息查询与创建
 - [x] 医生信息查询与创建
@@ -31,3 +32,6 @@ TODO List：
 |-|-|-|
 |doctor_id|INT|医生的唯一ID，主键，外键doctors.doctor_id ON DELETE CASCADE|
 |hospital_id|INT|医院的ID，外键hospitals.hospital_id ON DELETE CASCADE| -->
+
+# 运行方式
+`uvicorn database.main:app --reload`

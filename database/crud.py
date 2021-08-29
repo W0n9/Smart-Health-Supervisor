@@ -12,6 +12,9 @@ def get_doctor_by_name(db: Session, name: str):
 def get_doctor_by_hospital(db: Session, id: int):
     return db.query(models.Doctor).filter(models.Doctor.hospital_id == id).all()
 
+def get_doctor_by_hospital_and_name(db: Session, hospital_id: int, doctor_name: str):
+    return db.query(models.Doctor).filter(models.Doctor.hospital_id == hospital_id).filter(models.Doctor.doctor_name == doctor_name).first()
+
 def get_doctors(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Doctor).offset(skip).limit(limit).all()
 

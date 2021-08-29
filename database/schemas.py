@@ -1,10 +1,11 @@
 # 此文件用来规范数据库表里的数据
-from typing import Any, List, Optional
+from datetime import datetime, time, timedelta
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
-class DoctorCreate(BaseModel):
+class DoctorBase(BaseModel):
     doctor_name: str = Field(..., max_length=20)
     hospital_id: int
 
@@ -12,15 +13,23 @@ class DoctorCreate(BaseModel):
         orm_mode = True
 
 
-class DoctorReturn(DoctorCreate):
+class DoctorCreate(DoctorBase):
+    pass
+
+
+class DoctorReturn(DoctorBase):
     doctor_id: int
 
 
-class HospitalCreate(BaseModel):
+class HospitalBase(BaseModel):
     hospital_name: str = Field(..., max_length=20)
 
     class Config:
         orm_mode = True
+
+
+class HospitalCreate(HospitalBase):
+    pass
 
 
 class HospitalReturn(HospitalCreate):
@@ -36,7 +45,8 @@ class HospitalReturn(HospitalCreate):
 
 
 class Journal(BaseModel):
-    timestamp: Any
+    # 在请求和响应中将表示为 ISO 8601 格式的 str ，比如: 2008-09-15T15:53:00+05:00.
+    timestamp: datetime
     current_doctor_id: int
     current_hospital_id: int
 

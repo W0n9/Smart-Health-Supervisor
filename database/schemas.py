@@ -1,5 +1,6 @@
 # 此文件用来规范数据库表里的数据
 from datetime import datetime
+
 # from typing import List, Optional
 
 from pydantic import BaseModel, Field
@@ -47,11 +48,15 @@ class HospitalReturn(HospitalCreate):
 class JournalBase(BaseModel):
     # 在请求和响应中将表示为 ISO 8601 格式的 str ，比如: 2008-09-15T15:53:00+05:00.
     timestamp: datetime
+
     class Config:
         orm_mode = True
+
 
 class JournalCreate(JournalBase):
     current_doctor_id: int
     current_hospital_id: int
+
+
 class JournalReturn(JournalCreate):
     pass

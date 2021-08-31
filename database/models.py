@@ -1,7 +1,6 @@
 # 此文件用来定义数据库表结构
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
-from sqlalchemy.orm import backref, relationship
-from sqlalchemy.sql.sqltypes import INTEGER
+# from sqlalchemy.orm import backref, relationship
 
 from .database import Base
 

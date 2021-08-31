@@ -1,4 +1,5 @@
 from typing import List
+import datetime
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.orm import Session
@@ -8,7 +9,7 @@ from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(title="Smart Health Supervisor API",version="0.0.1")
 
 
 # Dependency
@@ -70,10 +71,16 @@ async def create_hospital(hospital: schemas.HospitalCreate,
 
 
 # 日志信息
-@app.get("/journals/", response_model=List[schemas.Journal],tags=["Journal"])
-async def read_journal():
-    pass
+## 查询当天的记录
+@app.get("/journals/{date}", response_model=List[schemas.JournalReturn],tags=["Journal"])
+async def read_journal(date:datetime.date,skip: int = 0,limit: int = 100,db: Session = Depends(get_db)):
+    journals=crud.get_journal_by_time(db,skip=skip, limit=limit,date=date)
+    return journals
 
-@app.post("/journals/", response_model=schemas.Journal,tags=["Journal"])
-async def create_journal():
-    pass
+@app.post("/journals/", response_model=schemas.JournalReturn,status_code=status.HTTP_201_CREATED,tags=["Journal"])
+async def create_journal(journal:schemas.JournalCreate,db: Session = Depends(get_db)):
+    db_journal=crud.validate_doctor(db,doctor_id=journal.current_doctor_id,hospital_id=journal.current_hospital_id)
+    if not db_journal:
+        raise HTTPException(status_code=400,
+                            detail="Doctor or Hospital id Error")
+    return crud.create_journal(db,journal)

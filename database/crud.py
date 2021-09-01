@@ -69,7 +69,7 @@ def create_hospital(db: Session, hospital: schemas.HospitalCreate):
 
 
 ## 日志相关操作
-def get_journal_by_time(
+def get_journal_by_day(
     db: Session, date: datetime.date, skip: int = 0, limit: int = 100
 ):
     # today_begin=datetime.datetime.strptime(date,"%Y-%m-%d").date()
@@ -80,6 +80,10 @@ def get_journal_by_time(
         models.Journal.timestamp < today_end,
     ]
     return db.query(models.Journal).filter(*conds).offset(skip).limit(limit).all()
+
+
+def get_journal_by_datetime(db: Session, time: datetime.datetime):
+    return db.query(models.Journal).filter(models.Journal.timestamp == time).first()
 
 
 def create_journal(db: Session, journal: schemas.JournalCreate):

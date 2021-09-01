@@ -80,7 +80,7 @@ async def create_hospital(
 async def read_journal(
     date: datetime.date, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 ):
-    journals = crud.get_journal_by_time(db, skip=skip, limit=limit, date=date)
+    journals = crud.get_journal_by_day(db, skip=skip, limit=limit, date=date)
     return journals
 
 
@@ -96,4 +96,7 @@ async def create_journal(journal: schemas.JournalCreate, db: Session = Depends(g
     )
     if not db_journal:
         raise HTTPException(status_code=400, detail="Doctor or Hospital id Error")
+    db_journal = crud.get_journal_by_datetime(db, time=journal.timestamp)
+    if db_journal:
+        raise HTTPException(status_code=400, detail="Timestamp already Existed")
     return crud.create_journal(db, journal)

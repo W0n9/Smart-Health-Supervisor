@@ -24,7 +24,10 @@ def get_db():
 
 @app.get("/")
 async def get_root():
-    return {"message": "Welcome to the Smart Health Supervisor API"}
+    return {
+        "message": "Welcome to the Smart Health Supervisor API",
+        "documentation_url": "/docs",
+    }
 
 
 # 医生信息
